@@ -28,17 +28,17 @@ class ApplicationController < Sinatra::Base
 
   post '/recipes' do #create, save & and redirect errors
     @recipe = Recipe.create(params)
-    redirect to "/recipes/#{@recipe.id}/edit"
+    redirect to "/recipes/#{@recipe.id}"
   end
 
   patch '/recipes/:id' do
     @recipe = Recipe.find_by_id(params[:id])
     @recipe.name = params[:name]
     @recipe.ingredients = params[:ingredients]
-    binding.pry
     @recipe.cook_time = params[:cook_time]
     @recipe.save
-    redirect to "/recipes/#{@recipe.id}"
+    redirect to "/recipes/#{@recipe.id}/edit"
+    binding.pry
   end
 
   delete '/recipes/:id/delete' do
